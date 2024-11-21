@@ -1,42 +1,39 @@
-version: 0.2
+version: 0version: 0.2
 
 phases:
   install:
     runtime-versions:
       python: 3.12
     commands:
-      # Install Python 3.12 if not already installed (modify if using a different version)
-      # Upgrade pip to its latest version
-      # Install virtualenv
+      - python -m pip install --upgrade pip  # Upgrade pip to its latest version
+
   pre_build:
     commands:
-      # Set up virtual environments for each function to isolate dependencies
+      - echo "Starting pre-build phase"
+
   build:
     commands:
-      # Install dependencies and package the first Lambda function
+      # Package index-photos Lambda function
       - cd LF1
-      - zip -r9 ${CODEBUILD_SRC_DIR}/function1.zip index-photos.py
-      # - cd $CODEBUILD_SRC_DIR
-      # - zip -g function1.zip lambda_function_1.py # Replace with your actual file name
+      - zip -r9 ${CODEBUILD_SRC_DIR}/index-photos.zip lambda_function.py
+      - rm lambda_function.py  # Clean up
+      - cd ..
 
-      # Install dependencies and package the second Lambda function
-      - cd ../LF2
-      - zip -r9 ${CODEBUILD_SRC_DIR}/function2.zip search-photos.py
-      # - cd $CODEBUILD_SRC_DIR
-      # - zip -g function2.zip lambda_function_2.py # Replace with your actual file name
-  
+      # Package search-photos Lambda function
+      - cd LF2
+      - zip -r9 ${CODEBUILD_SRC_DIR}/search-photos.zip lambda_function.py
+      - rm lambda_function.py  # Clean up
+      - cd ..
+
   post_build:
     commands:
-      - cd ..
-      - echo "Updating index-photo lambda function"
-      - aws lambda update-function-code --function-name LF1 --zip-file fileb://function1.zip
-      - echo "Updating search-photo lambda function"
-      - aws lambda update-function-code --function-name LF2 --zip-file fileb://function2.zip
-      - echo "post_build step"
+      - echo "Updating index-photos Lambda function"
+      - aws lambda update-function-code --function-name index-photos --zip-file fileb://index-photos.zip
+
+      - echo "Updating search-photos Lambda function"
+      - aws lambda update-function-code --function-name search-photos --zip-file fileb://search-photos.zip
 
 artifacts:
   files:
-    - function1.zip
-    - function2.zip
-
-# Optional: If you need to execute specific commands after the build process is complete
+    - index-photos.zip
+    - search-photos.zip
