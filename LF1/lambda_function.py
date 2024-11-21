@@ -61,8 +61,7 @@ def lambda_handler(event, context):
     }
     es.index(index=es_index, body=doc)
     
-    print("Lioonel Messisidisdisidsid")
-    print("Cristianoooooooooo")
+    print("Siuuuu V3")
     
     return {
         'statusCode': 200,
