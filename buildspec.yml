@@ -15,13 +15,13 @@ phases:
     commands:
       # Install dependencies and package the first Lambda function
       - cd LF1
-      - zip -r9 ${CODEBUILD_SRC_DIR}/function1.zip lambda_function.py
+      - zip -r9 ${CODEBUILD_SRC_DIR}/function1.zip index-photos.py
       # - cd $CODEBUILD_SRC_DIR
       # - zip -g function1.zip lambda_function_1.py # Replace with your actual file name
 
       # Install dependencies and package the second Lambda function
       - cd ../LF2
-      - zip -r9 ${CODEBUILD_SRC_DIR}/function2.zip lambda_function.py
+      - zip -r9 ${CODEBUILD_SRC_DIR}/function2.zip search-photos.py
       # - cd $CODEBUILD_SRC_DIR
       # - zip -g function2.zip lambda_function_2.py # Replace with your actual file name
   
