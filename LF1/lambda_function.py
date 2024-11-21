@@ -1,3 +1,4 @@
+# Index Photo Version 2 updated by codepipeline
 import boto3 
 import json
 import os 

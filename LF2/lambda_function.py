@@ -1,3 +1,4 @@
+# Search Photo Version 2 updated by codepipeline
 import json
 import random
 import boto3
