@@ -94,6 +94,7 @@ def get_photo_path(keys):
     resp = []
     searchData = es.search({"query": {"terms": {"labels": keys}}})
     resp.append(searchData)
+    print("Version 2 Lambda running")
     print("response of open", resp)
 
     output = []
